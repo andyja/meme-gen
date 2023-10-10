@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+
 // import memesData from "../../public/memesData";
 
 function Meme() {
 
-    const [meme, setMeme] = React.useState({
+    const [meme, setMeme] = useState({
         topText: "",
         bottomText: "",
         randomImage: "https://i.imgflip.com/9ehk.jpg"
     });
 
-    const [allMemes, setAllMemes] = React.useState([])
+    const [allMemes, setAllMemes] = useState([])
 
-    React.useEffect(async () => {
+    useEffect(async () => {
         const res = await fetch("https://api.imgflip.com/get_memes")
         const data = await res.json()
         setAllMemes(data.data.memes)
@@ -30,7 +31,7 @@ function Meme() {
 
     function handleChange(event) {
         const {name, value} = event.target
-        setMeme(prevMem => ({
+        setMeme(prevMeme => ({
             ...prevMeme,
             [name]: value
         }))
