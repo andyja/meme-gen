@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // import memesData from "../../public/memesData";
 
@@ -10,13 +10,16 @@ function Meme() {
         randomImage: "https://i.imgflip.com/9ehk.jpg"
     });
 
-    const [allMemes, setAllMemes] = useState([])
+    const [allMemes, setAllMemes] = useState([]);
 
-    useEffect(async () => {
-        const res = await fetch("https://api.imgflip.com/get_memes")
-        const data = await res.json()
-        setAllMemes(data.data.memes)
-    }, [])
+    useEffect(() => {
+        async function getMemes() {
+            const res = await fetch("https://api.imgflip.com/get_memes")
+            const data = await res.json()
+            setAllMemes(data.data.memes)
+        }   
+        getMemes()
+    }, []);
 
     function getMemeImage() {
         const randomNumber = Math.floor(Math.random() * allMemes.length)
